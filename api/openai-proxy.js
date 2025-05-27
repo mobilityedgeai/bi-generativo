@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
-  // Configurar CORS para permitir acesso do seu domínio
+  // Configurar CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -21,16 +21,20 @@ module.exports = async (req, res) => {
   }
   
   try {
+    console.log('Recebendo requisição:', req.body);
+    
     // Fazer requisição para a OpenAI
     const response = await axios({
       method: 'post',
-      url: 'https://api.openai.com/v4/chat/completions',
+      url: 'https://api.openai.com/v1/chat/completions',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       data: req.body
     } );
+    
+    console.log('Resposta da OpenAI:', response.data);
     
     // Retornar resposta
     return res.status(200).json(response.data);
