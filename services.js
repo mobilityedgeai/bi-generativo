@@ -237,7 +237,7 @@ class FirebaseService {
 class AIService {
   constructor() {
     // URL do proxy serverless que protege a chave da API
-    this.proxyUrl = "https://api.example.com/openai-proxy"; // Será substituído pelo endpoint real
+    this.proxyUrl = "https://bi-generativo.vercel.app/api/openai-proxy"; // Será substituído pelo endpoint real
   }
 
   // Processar consulta em linguagem natural
