@@ -27,6 +27,19 @@ body {
   line-height: 1.5;
 }
 
+/* Correções para remover círculos e elementos indesejados */
+body::before, body::after,
+div::before, div::after,
+main::before, main::after,
+section::before, section::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -64,6 +77,8 @@ header {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1.5rem;
+  position: relative !important;
+  background-color: transparent !important;
 }
 
 .metrics-container {
@@ -82,10 +97,11 @@ header {
 }
 
 .metric-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  color: var(--primary-color) !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
 }
 
 .metric-label {
@@ -117,8 +133,18 @@ header {
 }
 
 .chart-container {
-  height: 300px;
-  position: relative;
+  height: 300px !important;
+  position: relative !important;
+  width: 100% !important;
+  background-color: white !important;
+  overflow: hidden !important;
+}
+
+/* Remover qualquer elemento circular não desejado */
+[class*="circle"], 
+[class*="Circle"],
+[style*="border-radius: 50%"]:not(.user-profile img):not(.status) {
+  display: none !important;
 }
 
 .data-card {
@@ -414,4 +440,33 @@ header {
   .chart-container {
     height: 200px;
   }
+}
+
+/* Forçar exibição correta dos elementos principais */
+.main-content,
+.metrics-container,
+.charts-container,
+.data-card,
+.insights-card,
+.query-card {
+  display: block !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* Garantir que os textos sejam visíveis */
+h1, h2, h3, p, span, div {
+  color: inherit;
+}
+
+/* Forçar exibição correta das tabelas */
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+th, td {
+  padding: 10px !important;
+  text-align: left !important;
+  border-bottom: 1px solid #e5e7eb !important;
 }
