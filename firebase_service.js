@@ -1,6 +1,6 @@
 // Serviço de integração com Firebase para o BI Generativo
 class FirebaseService {
-  constructor() {
+  constructor( ) {
     this.db = null;
     this.enterpriseId = "qzDVZ1jB6IC60baxtsDU"; // ID da empresa para filtrar dados
     this.initFirebase();
