@@ -23,39 +23,24 @@ section::before, section::after {
 /* Remover qualquer elemento circular não desejado */
 [class*="circle"], 
 [class*="Circle"],
-[style*="border-radius: 50%"] {
+[style*="border-radius: 50%"]:not(.user-profile img):not(.status-badge):not(.insight-icon) {
   display: none !important;
 }
 
 /* Forçar exibição correta dos elementos principais */
 .main-content,
-.metrics-container,
-.charts-container,
-.data-card,
-.insights-card,
-.query-card {
+.dashboard,
+.card,
+.insights-container,
+.query-input-container {
   display: block !important;
   position: relative !important;
-  background-color: white !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-  margin-bottom: 20px !important;
-  padding: 20px !important;
   overflow: visible !important;
 }
 
 /* Garantir que os textos sejam visíveis */
 h1, h2, h3, p, span, div {
-  color: #1f2937 !important;
-}
-
-/* Forçar exibição correta das métricas */
-.metric-value {
-  font-size: 2.5rem !important;
-  font-weight: 700 !important;
-  color: #0078ff !important;
-  margin-bottom: 0.5rem !important;
-  display: block !important;
+  color: inherit;
 }
 
 /* Forçar exibição correta das tabelas */
@@ -68,4 +53,24 @@ th, td {
   padding: 10px !important;
   text-align: left !important;
   border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Correções adicionais para garantir que os gráficos sejam exibidos */
+canvas {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Garantir que não haja elementos estranhos no fundo */
+body > div:not(.app-container):not(.loading):not([class*="card"]):not([class*="container"]):not([class*="header"]) {
+  display: none !important;
+}
+
+/* Remover qualquer círculo grande que possa estar aparecendo */
+body > div > svg,
+.main-content > svg,
+svg[width="100%"],
+svg[height="100%"] {
+  display: none !important;
 }
