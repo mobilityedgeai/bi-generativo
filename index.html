@@ -123,11 +123,10 @@
     <!-- Script para remover círculos indesejados -->
     <script src="./circle-fix.js"></script>
     
-    <!-- Script para autenticação anônima (opcional - descomente se necessário ) -->
-    <!--
+    <!-- Script para autenticação anônima -->
     <script>
       // Autenticação anônima para acesso ao Firestore
-      firebase.auth().signInAnonymously()
+      firebase.auth( ).signInAnonymously()
         .then(() => {
           console.log("Autenticado anonimamente com sucesso");
         })
@@ -135,6 +134,5 @@
           console.error("Erro na autenticação anônima:", error);
         });
     </script>
-    -->
 </body>
 </html>
