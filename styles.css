@@ -143,7 +143,7 @@ header {
 /* Remover qualquer elemento circular não desejado */
 [class*="circle"], 
 [class*="Circle"],
-[style*="border-radius: 50%"]:not(.user-profile img):not(.status) {
+[style*="border-radius: 50%"]:not(.user-profile img):not(.status):not(.insight-icon) {
   display: none !important;
 }
 
@@ -469,4 +469,24 @@ th, td {
   padding: 10px !important;
   text-align: left !important;
   border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Correções adicionais para garantir que os gráficos sejam exibidos */
+canvas {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Garantir que não haja elementos estranhos no fundo */
+body > div:not(.main-content):not(.loading):not([class*="card"]):not([class*="container"]):not([class*="header"]) {
+  display: none !important;
+}
+
+/* Remover qualquer círculo grande que possa estar aparecendo */
+body > div > svg,
+.main-content > svg,
+svg[width="100%"],
+svg[height="100%"] {
+  display: none !important;
 }
