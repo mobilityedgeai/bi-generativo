@@ -1,130 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BI Generativo - Inspeções de Frotas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BI Generativo</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- Chart.js para visualizações -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="app-container">
-    <header class="header">
-      <div class="logo">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M2 17L12 22L22 17" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M2 12L12 17L22 12" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>BI Generativo</span>
-      </div>
-      <div class="user-menu">
-        <button class="btn-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 13C14.7614 13 17 10.7614 17 8C17 5.23858 14.7614 3 12 3C9.23858 3 7 5.23858 7 8C7 10.7614 9.23858 13 12 13Z" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 21C20 18.7909 16.4183 17 12 17C7.58172 17 4 18.7909 4 21" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
+    <header>
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDA3OGZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1iYXItY2hhcnQtMiI+PHBhdGggZD0iTTE4IDIwVjEwTTE4IDIwSDEyTTEyIDIwVjRNMTIgMjBINk02IDIwVjE0Ij48L3BhdGg+PC9zdmc+" alt="Logo">
+            <h1>BI Generativo</h1>
+        </div>
+        <div class="user-profile">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNzA3MDcwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci11c2VyIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+" alt="Perfil">
+        </div>
     </header>
 
     <main class="main-content">
-      <div class="dashboard">
-        <!-- Card de Taxa de Conformidade -->
-        <div class="card metric-card fade-in">
-          <div class="metric-value" id="compliance-rate">78%</div>
-          <div class="metric-label">Taxa de Conformidade</div>
+        <div class="metrics-cards">
+            <div class="metric-card">
+                <h2>78%</h2>
+                <p>Taxa de Conformidade</p>
+                <p class="metric-total">4.903</p>
+                <p>Total de Inspeções</p>
+                <p class="metric-total">1.079</p>
+                <p>Não Conformidades</p>
+            </div>
         </div>
 
-        <!-- Card de Total de Inspeções -->
-        <div class="card metric-card fade-in delay-1">
-          <div class="metric-value" id="total-inspections">4.903</div>
-          <div class="metric-label">Total de Inspeções</div>
+        <div class="dashboard">
+            <div class="chart-card">
+                <h3>Conformidade por Tipo de Veículo</h3>
+                <div class="chart-container">
+                    <canvas id="vehicle-type-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Tendência de Conformidade</h3>
+                <div class="chart-container">
+                    <canvas id="trend-chart"></canvas>
+                </div>
+            </div>
         </div>
 
-        <!-- Card de Não Conformidades -->
-        <div class="card metric-card fade-in delay-2">
-          <div class="metric-value" id="non-compliance-count">1.079</div>
-          <div class="metric-label">Não Conformidades</div>
+        <div class="table-card">
+            <h3>Inspeções Recentes</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo de Veículo</th>
+                            <th>Placa</th>
+                            <th>Motorista</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-inspections">
+                        <!-- Dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
 
-      <!-- Gráficos -->
-      <div class="dashboard">
-        <!-- Gráfico de Conformidade por Tipo de Veículo -->
-        <div class="card fade-in">
-          <h3 class="card-title">Conformidade por Tipo de Veículo</h3>
-          <div class="chart-container">
-            <canvas id="vehicle-type-chart"></canvas>
-          </div>
+        <div class="insights-card">
+            <h3>
+                <span class="insights-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </span>
+                Insights
+            </h3>
+            <div id="insights-list" class="insights-list">
+                <!-- Insights serão inseridos via JavaScript -->
+            </div>
         </div>
 
-        <!-- Gráfico de Tendência de Conformidade -->
-        <div class="card fade-in delay-1">
-          <h3 class="card-title">Tendência de Conformidade</h3>
-          <div class="chart-container">
-            <canvas id="compliance-trend-chart"></canvas>
-          </div>
+        <div class="query-card">
+            <div class="query-input-container">
+                <input type="text" id="query-input" placeholder="Digite sua pergunta aqui...">
+                <button id="submit-query" class="query-button">Enviar</button>
+            </div>
+            <div class="suggestions">
+                <p>Sugestões:</p>
+                <div class="suggestion-chips">
+                    <div class="suggestion-chip">Mostre o total de inspeções por tipo de veículo este mês</div>
+                    <div class="suggestion-chip">Quais motoristas têm mais não conformidades?</div>
+                    <div class="suggestion-chip">Compare a taxa de conformidade entre garagens</div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Tabela de Inspeções Recentes -->
-      <div class="card fade-in delay-2">
-        <h3 class="card-title">Inspeções Recentes</h3>
-        <div class="table-container">
-          <table class="data-table" id="recent-inspections">
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Tipo de Veículo</th>
-                <th>Placa</th>
-                <th>Motorista</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Dados serão inseridos dinamicamente -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Área de Insights -->
-      <div class="insights-container fade-in delay-3">
-        <h3 class="insights-title">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Insights
-        </h3>
-        <div id="insights-list">
-          <!-- Insights serão inseridos dinamicamente -->
-        </div>
-      </div>
-
-      <!-- Área de Consulta -->
-      <div class="query-input-container fade-in">
-        <div class="query-input">
-          <input type="text" id="query-input" placeholder="Digite sua pergunta aqui..." aria-label="Digite sua consulta">
-          <button id="submit-query">Enviar</button>
-        </div>
-        <div class="suggestions">
-          <div class="suggestions-title">Sugestões:</div>
-          <div class="suggestion-chips">
-            <div class="suggestion-chip">Mostre o total de inspeções por tipo de veículo este mês</div>
-            <div class="suggestion-chip">Quais motoristas têm mais não conformidades?</div>
-            <div class="suggestion-chip">Compare a taxa de conformidade entre garagens</div>
-          </div>
-        </div>
-      </div>
     </main>
-  </div>
 
-  <script src="./app.js"></script>
-  <script src="./charts.js"></script>
-  <script src="./query-processor.js"></script>
+    <!-- Serviços -->
+    <script src="./firebase_service.js"></script>
+    <script src="./services.js"></script>
+    <script src="./charts.js"></script>
+    <script src="./query-processor.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>
