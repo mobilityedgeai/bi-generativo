@@ -18,7 +18,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Chart.js para visualizações -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=KLNuNYgYUnnKGMWIq-00rwtasLGZg6s6J7yodMt7v8wY2eHs1_hnItdmFyp15EH5mPM5nERL4X6WAKUhPRf5yIjdVf5KOXUUgurq6JnmNKbzhjwK7W8GEEjKy2GRVhYuPKz55U4MSDyF6LR3AlYyiLCkyA-NddUhSEOGF2X-UXpRNxidf5nN3bi4ddSjyZMN0mqJ4iDQskpMqHO_vDRlTYXAJLAMUidJKnxRWBkLF1HyT5stqW0QIeMQamgNOaRxp-ZIk-k2VfbpIbYlAHgvjX2nkiB951KcaBOa3mleUcNv07KzkvTjrCkb5u1XIVfQghXFPuG3ARBk1fEEv3TJGGzszGRpfpbl17rWNW1l92WwPC6UQszC_8CxM2Il851e39z3ulwk5o6mtpLdBguH95Xm4_csLUHqXZsRbb3zP6n7FQ41nM9A8LAdsv5msXSP0z_-5GpEMK5u2Gv_mBU8-fDK8EwAcAKtLzMU7DnLhOf5-OXNQQRedLVUZv5106NAlYK5DdwjBDTaRPrh5xOSvFWWLmxAs-IIkacZ21NNXBiBAvp8GPsplrFGsw9AxVwy13Q6788nBj6LhtlAsq_eHX_PHyWQEko0gHFf_Xar0P29XENKgkPqsAqslF1b0BA_EqZ9AAbVM-4ljFq3qT4f0ffgA36R1N4M_w1AluWDHfEg6KlGsScO1hcP3m52sEYXKIEXRA2eml-0t2acqJ1WLIovPsHG0cgXAfjXLco4ttKFcPjMHw1b-9lqw4UbR8aejN1sxPOl8d-5ZeBquPiIvitQfiqzumdFlRBGayvmKhEBb9ADXWc8h6IL12TmarMfCui4uZch549jqio6QgB23Mf6rpmPUpKqB0OYsZ8f7Er7hoQQgJoCYbWwgGvziACW" charset="UTF-8"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    
+    <!-- Inicialização do Firebase - deve ser carregado primeiro -->
+    <script src="./firebase-init.js"></script>
 </head>
 <body>
     <header>
@@ -108,13 +116,7 @@
         </div>
     </main>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    
     <!-- Serviços - Ordem correta dos scripts -->
-    <script src="./firebase_service.js"></script>
     <script src="./services.js"></script>
     <script src="./charts.js"></script>
     <script src="./query-processor.js"></script>
@@ -122,17 +124,5 @@
     
     <!-- Script para remover círculos indesejados -->
     <script src="./circle-fix.js"></script>
-    
-    <!-- Script para autenticação anônima -->
-    <script>
-      // Autenticação anônima para acesso ao Firestore
-      firebase.auth( ).signInAnonymously()
-        .then(() => {
-          console.log("Autenticado anonimamente com sucesso");
-        })
-        .catch((error) => {
-          console.error("Erro na autenticação anônima:", error);
-        });
-    </script>
 </body>
 </html>
