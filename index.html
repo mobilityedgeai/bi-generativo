@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BI Generativo</title>
     
+    <!-- Favicon inline para evitar erro 404 -->
+    <link rel="icon" href="data:,">
+    
     <!-- Estilos -->
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./fixes.css">
+    
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Chart.js para visualizações -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
     <header>
@@ -29,11 +34,11 @@
     <main class="main-content">
         <div class="metrics-cards">
             <div class="metric-card">
-                <h2>78%</h2>
+                <h2 id="compliance-rate">78%</h2>
                 <p>Taxa de Conformidade</p>
-                <p class="metric-total">4.903</p>
+                <p class="metric-total" id="total-inspections">4.903</p>
                 <p>Total de Inspeções</p>
-                <p class="metric-total">1.079</p>
+                <p class="metric-total" id="non-compliance-count">1.079</p>
                 <p>Não Conformidades</p>
             </div>
         </div>
@@ -50,6 +55,7 @@
                 <h3>Tendência de Conformidade</h3>
                 <div class="chart-container">
                     <canvas id="trend-chart"></canvas>
+                    <canvas id="compliance-trend-chart"></canvas>
                 </div>
             </div>
         </div>
@@ -102,11 +108,33 @@
         </div>
     </main>
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    
     <!-- Serviços - Ordem correta dos scripts -->
     <script src="./firebase_service.js"></script>
     <script src="./services.js"></script>
     <script src="./charts.js"></script>
     <script src="./query-processor.js"></script>
     <script src="./app.js"></script>
+    
+    <!-- Script para remover círculos indesejados -->
+    <script src="./circle-fix.js"></script>
+    
+    <!-- Script para autenticação anônima (opcional - descomente se necessário ) -->
+    <!--
+    <script>
+      // Autenticação anônima para acesso ao Firestore
+      firebase.auth().signInAnonymously()
+        .then(() => {
+          console.log("Autenticado anonimamente com sucesso");
+        })
+        .catch((error) => {
+          console.error("Erro na autenticação anônima:", error);
+        });
+    </script>
+    -->
 </body>
 </html>
